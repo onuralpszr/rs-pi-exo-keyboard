@@ -15,4 +15,9 @@ Author : Onuralp SEZER
 
 License : GPLv3
 
+If you have idea or suggestion please send me mail 
+
+Thank You
+
+thunderbirdtr[AT]gmail[DOT]com 
 
