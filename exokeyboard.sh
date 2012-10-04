@@ -1,20 +1,41 @@
 #!/bin/bash
 echo "**********************************************************************"
 echo "* Raspberry-PI Exo Keyboard Installer                                *"
+echo "* Script made in by Onuralp SEZER                                    *"
 echo "**********************************************************************"
-echo
+echo ""
 echo "********* System Update Check ****************************************"
-echo
-sudo apt-get update && sudo apt-get upgrade -y
+echo "Please wait until see update complete message"
+sudo apt-get -q -q update && sudo apt-get -q -q upgrade -y
+echo "**********************************************************************"
+echo ""
 echo "******** System Update and Upgrade Complete **************************"
 echo
 echo "******** Bluetooth Tool and Driver Install ***************************"
 echo
-sudo apt-get install bluez-utils bluez-compat -y
+
+$first_command > installed_packages
+$second_command > packages_with_updates
+
+if (grep bluez-utils installed_packages); then
+   echo "Package is installed"
+   if (grep bluez-utils packages_with_updates); then
+      sudo apt-get -q -q update #apt-get runs in quiet mode to avoid lots of output
+      echo "Update available for package"
+      echo "" 
+      echo " Updating..."
+      #Whatever you need to update the package here
+	sudo apt-get update bluez-utils bluez-compat -y
+   fi
+else
+   echo "Package not installed, installing..."
+   sudo apt-get install bluez-utils bluez-compat -y
+fi
 echo "******** Bluetooh Installation Complete ******************************"
 echo
 echo
 echo "******** Please Activate your exo keyboard before scan ***************"
+echo "********       You have 5 second until scan start      ***************"
 sleep 5
 echo "******** Exo Keyboard Scan *******************************************"
 hcitool scan |grep 'Macro Keyboard' >> temp.txt
