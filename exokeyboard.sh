@@ -20,11 +20,10 @@ $second_command > packages_with_updates
 if (grep bluez-utils installed_packages); then
    echo "Package is installed"
    if (grep bluez-utils packages_with_updates); then
-      sudo apt-get -q -q update #apt-get runs in quiet mode to avoid lots of output
+      sudo apt-get -q -q update bluez-utils bluez-compat -y
       echo "Update available for package"
       echo "" 
       echo " Updating..."
-      #Whatever you need to update the package here
 	sudo apt-get update bluez-utils bluez-compat -y
    fi
 else
